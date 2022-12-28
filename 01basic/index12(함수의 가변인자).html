@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <script>
+        function func1(x, y){
+            // arguments 키워드를 통해 매개변수에 대한 정보 확인 가능
+            console.log(arguments); // 매개변수 확인
+            console.log(arguments[0]);
+            console.log(typeof arguments); 
+            console.log(arguments.length); // 매개변수의 개수 확인
+            return x+y;
+        }
+
+        // 매개변수 자체는 큰 의미가 없다. 단순히 사용할 값에 이름을 붙이는 형태
+        console.log(func1(1)); // NaN 
+        console.log(func1(1, 5)); // 6
+        console.log(func1(1, 2, 4, 6)); // 3
+
+    </script>
+    
+</body>
+</html>

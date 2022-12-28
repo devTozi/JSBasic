@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        // 1st
+        // function func1(){
+
+        // }
+
+        // var a = func1;
+
+        var a = function(){
+            console.log('a 함수');
+        }
+        a();
+
+        var b = function(x, y){
+            return x+y;
+        }
+        console.log(b(1,2));
+
+        console.log('--------------------------');
+
+        // 익명함수로 변경하기
+        function method1(x){
+            if(x%2 == 0) return '짝수';
+            else return '홀수';
+        }
+
+        var a = function(x){
+            if(x%2 == 0) return '짝수';
+            else return '홀수';
+        }
+        console.log(a(2));
+
+        // 매개변수를 3개 받아서 평균을 반환하는 익명함수 선언하기
+        var b = function(x, y, z){
+            return (x+y+z)/3;
+        }
+        console.log(Math.round(b(13,3,3)*100)/100) ;
+
+        console.log('--------------------------');
+
+        // 즉시실행 함수
+        (function(x){
+            console.log(x);
+        })('하이하이');
+
+    </script>
+
+</body>
+</html>

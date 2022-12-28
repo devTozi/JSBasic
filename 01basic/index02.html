@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        var num1 = "10"; // 문자
+        var num2 = '10'; // 문자
+        var num3 = 10; // 숫자
+
+        var result = num1 + num2 + num3;
+        console.log(result);
+
+        // 변수의 타입이 다르더라도 변경 가능
+        num1 = 3.14;
+        num2 = 10;
+        num3 = '10'
+
+        // 숫자 + 숫자 = 숫자, 숫자 + 문자 = 문자
+        var result = num1 + num2 + num3;
+        console.log(result);
+        console.log(10+3.14);
+        console.log(20+'20');
+        console.log(10+undefined); // NaN값 출력 > 잘못된 연산
+
+        var bool = true;
+        console.log(bool);
+
+        // undefined - 초기값을 지정하지 않을 경우
+        var un;
+        console.log(un);
+
+        // null - 초기값을 지정했는데, 값이 존재하지 않는 경우
+        var tag = document.getElementById("a");
+        console.log(tag);
+
+        // 키워드 - typeof
+        console.log(typeof num1);
+        console.log(typeof num3);
+        console.log(typeof bool);
+        console.log(typeof un);
+        console.log(typeof tag);
+
+    </script>
+
+</body>
+</html>

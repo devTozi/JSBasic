@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <script>
+
+        func1(); // 호이스팅(선언적 함수에서 가능)
+        var result = func2();
+        console.log(result);
+        console.log(func3(1,2,3));
+
+        function func1(){
+            console.log('func1 실행');
+        }
+
+        function func2(){
+            console.log('func2 실행');
+            return 'func2 반환';
+        }
+
+        function func3(a, b, c){
+            console.log('func3 실행');
+            return a+b+c;
+        }
+
+        console.log('---------------------------');
+
+        // 함수를 변수에 저장할 수 있다.
+        var a = func1; // ()를 빼야 함수를 저장, () 포함 시 리턴값이 저장됨
+        a();
+        console.log(typeof a);
+        console.log(func1);
+        console.log(a);
+    
+
+    </script>
+    
+</body>
+</html>
