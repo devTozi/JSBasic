@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <select id="sel">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+    </select>
+    
+    <input type="text" id="te">
+
+    <div ondblclick="db();">db클릭이벤트</div>
+
+    <script>
+        // 위에 있는 select와 input에 여러분이 원하는 방법으로 change 이벤트 걸어보기
+        // div에는 dbclick 이벤트 걸기
+
+        // 표준이벤트
+        var sel = document.getElementById('sel');
+        sel.addEventListener('change', function(){
+            alert('hi');
+        });
+        
+        // 기본이벤트
+        var te = document.getElementById('te');
+        te.onchange = function(){
+            alert('hi');
+        }
+
+        // 인라인이벤트
+        function db(){
+            alert('hh');
+        }
+
+    </script>
+
+</body>
+</html>

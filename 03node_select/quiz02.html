@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h3 id="msg">언어를 선택하세요.</h3>
+    <select id="sel">
+        <option value="언어를 선택하세요.">선택</option>
+        <option value="한국어">한국어</option>
+        <option value="eng">eng</option>
+        <option value="中文">中文</option>
+    </select>
+
+    <script>
+        var sel = document.getElementById('sel');
+        console.log(sel);
+        var msg = document.querySelector('#msg');
+        sel.onchange = function(){
+            if(sel.value == '한국어') msg.innerHTML = sel.value;
+            else if(sel.value == 'eng') msg.innerHTML = sel.value;
+            else if(sel.value == '中文') msg.innerHTML = sel.value;
+            else if(sel.value == '언어를 선택하세요.') msg.innerHTML = sel.value;
+        }
+
+    </script>
+
+</body>
+</html>

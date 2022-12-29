@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <script>
+        // 화면 로딩이 완료된 이후에 실행
+        // onload는 화면별로 1개만 실행 가능
+        window.onload = function(){
+            var a = document.getElementById('btn');
+            console.log(a);
+
+            // 함수명만 적을때는 () 생략해야 함
+            a.onclick = function(){
+                alert('hi');
+            }
+        }
+    </script>
+
+    <button id="btn">기본이벤트</button>
+    
+</body>
+</html>
