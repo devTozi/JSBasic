@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <!-- this, innerHTML, value 속성 사용 -->
+    <h3>JS 카운트 만들기</h3>
+
+    <input type="number" value="0">
+    <button onclick="calc(this)">+</button>
+    <button onclick="calc(this)">-</button>
+    
+    <script>
+        var input = document.querySelector('input');
+
+        function calc(oper){
+            if(oper.innerHTML == '+') input.value++;
+            else {
+               if(input.value > 0)input.value--;
+            }    
+        }
+    </script>
+
+</body>
+</html>

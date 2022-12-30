@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        input:focus {
+            outline: none;
+        }
+    </style>
+
+</head>
+<body>
+
+    <!-- onfocus: 인풋에 포커스가 들어갈 떄 동작, onblur: 인풋에 포커스가 떠났을 때 동작-->
+    <h3>focus, blur</h3>
+    아이디 <input type="text" id="id">
+    <h4 id="id_msg"></h4>
+    비밀번호 <input type="password" id="pw">
+    <h4 id="pw_msg"></h4>
+
+    <script>
+        var id = document.getElementById('id');
+        var id_msg = document.getElementById('id_msg');
+        var pw = document.getElementById('pw');
+        var pw_msg = document.getElementById('pw_msg');
+
+        id.onchange = function(){
+            if(id.value.length < 4) {
+                id.style.border = '2px solid red';
+                id_msg.innerHTML = '아이디 4글자 이상 입력';
+            }else {
+                id.style.border = '2px solid green';
+                id_msg.innerHTML = '';
+            }
+        }
+
+        pw.onchange = function(){
+            if(pw.value.length < 9) {
+                pw.style.border = '2px solid red';
+                pw_msg.innerHTML = '비밀번호 9글자 이상 입력';
+            }else {
+                pw.style.border = '2px solid green';
+                pw_msg.innerHTML = '';
+            }
+        }
+
+    </script>
+    
+</body>
+</html>
