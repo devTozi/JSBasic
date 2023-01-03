@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <h2>스케쥴표</h2>
+
+    <div id="box">
+        <input type="text" placeholder="이름 입력" id="user_name">
+        <button id="user_btn">확인</button>
+    </div>
+
+    <br>
+
+    <div id="sc">
+        <input type="text" placeholder="스케쥴 입력" id="user_sc">
+        <button id="sc_btn">추가</button>
+        <button id="del_btn" onclick="all_del();">전체 삭제</button>
+        <ul>
+            
+        </ul>
+    </div>
+
+    <script>
+        var box = document.getElementById('box');
+        var user_name = document.getElementById('user_name');
+        var user_btn = document.getElementById('user_btn');
+        user_btn.onclick = function(){
+            var h3 = document.createElement('h3');
+            h3.innerHTML = user_name.value + '님 안녕하세요.';
+            box.appendChild(h3);
+            user_btn.style.display = 'none';
+            user_name.style.display = 'none';
+        }
+
+        var sc = document.getElementById('sc');
+        var user_sc = document.getElementById('user_sc');
+        var sc_btn = document.getElementById('sc_btn');
+        var ul = document.querySelector('#sc ul');
+        
+        sc_btn.onclick = function(){
+            // var li = document.createElement('li');
+            // li.innerHTML = user_sc.value + "<button onclick='sc_del(this)'>삭제(더블클릭)</button>";
+            // user_sc.value = '';
+            // ul.appendChild(li);
+
+            var li = document.createElement('li');
+            li.innerHTML = user_sc.value;
+
+            var btn1 = document.createElement('button');
+            btn1.innerHTML = '삭제';
+            btn1.ondblclick = sc_del;
+
+            var btn2 = document.createElement('button');
+            btn2.innerHTML = '↑';
+            btn2.onclick = up;
+
+            var btn3 = document.createElement('button');
+            btn3.innerHTML = '↓';
+            btn3.onclick = down;
+
+            li.appendChild(btn1);
+            li.appendChild(btn2);
+            li.appendChild(btn3);
+            ul.appendChild(li);
+            user_sc.value = '';
+        }
+        
+        function sc_del(){
+            this.parentElement.remove();
+        }
+
+        function up(){
+            var list = this.parentElement.parentElement;
+            var current = this.parentElement;
+            var prev = current.previousElementSibling;
+
+            if(!confirm('목록을 이동하시겠습니까')) return;
+            list.insertBefore(current, prev);
+        }
+        
+        function down(){
+            var list = this.parentElement.parentElement;
+            var current = this.parentElement;
+            var next = current.nextElementSibling;
+
+            if(!confirm('목록을 이동하시겠습니까')) return;
+            if(next == null){
+                var first = list.firstChild;
+                list.insertBefore(current, first);
+                return;
+            }
+            list.insertBefore(next, current);
+        }
+
+        function all_del(){
+            var list = document.querySelectorAll('#sc ul li');
+            for(var i of list){
+                i.remove();
+            }
+        }
+
+    </script>
+    
+</body>
+</html>
