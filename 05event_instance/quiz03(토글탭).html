@@ -17,8 +17,23 @@
         }
         .toggle li:hover {background-color: cornflowerblue;}
 
-        .toggle-menu {display: none;}
-        .active { display: block; }
+        .toggle-menu {display: none; text-align: center;}
+        .active { display: block; animation: fadeIn 1s ease-in-out}
+
+        /* 애니메이션 무료 라이브러리 : https://michalsnik.github.io/aos/ */
+        /* 애니메이션 */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                margin-left: -100px;
+                background-color: beige;
+            }to {
+                opacity: 1;
+                margin-left: 0;
+                background-color: honeydew;
+            }
+        }
+ 
     </style>
 
 </head>
@@ -37,13 +52,13 @@
     
         <div>
             <div class="toggle-menu active" id="toggle1">
-                토글메뉴1
+                <img src="img/1.jpg" width="300" height="200">
             </div>
             <div class="toggle-menu" id="toggle2">
-                토글메뉴2
+                <img src="img/2.jpg" width="300" height="200">
             </div>
             <div class="toggle-menu" id="toggle3">
-                토글메뉴3
+                <img src="img/3.jpg" width="300" height="200">
             </div>
         </div>
     
@@ -53,14 +68,8 @@
             var toggle = document.querySelector('.toggle');
             toggle.onclick = function(){
                 if(event.target.tagName != 'LI') return;
-                
-                var tlist = document.querySelectorAll('.toggle-menu');
-                for(var i of tlist) {
-                    if(i.classList.contains('active')) i.classList.remove('active');
-                }    
-                var id = event.target.dataset.id;
-                var in_id = document.querySelector(id);
-                in_id.classList.add('active');
+                document.querySelector('.active').classList.remove('active');
+                document.querySelector(event.target.dataset.id).classList.add('active');
             }
 
         </script>

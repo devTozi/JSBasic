@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <script>
+        var date = new Date(); // 현재 시간
+        date = new Date(2023, 0, 4); // 월은 0부터 시작
+        date = new Date(2023, 0, 4, 14, 20, 30);
+        console.log(date);
+
+        // 날짜의 포멧형식 변환 함수
+        console.log(date.toUTCString());
+        console.log(date.toLocaleTimeString());
+        console.log(date.toISOString());
+        console.log('============');
+
+        // 년, 월, 일을 얻는 getter
+        console.log(date.getTime()); // 1970.1.1 0시부터 경과된 시간을 초단위로 반환
+        console.log(date.getFullYear());
+        console.log(date.getMonth()+1);
+        console.log(date.getDate());
+        console.log(date.getHours());
+        console.log(date.getMinutes());
+        console.log(date.getSeconds());
+
+    </script>
+    
+</body>
+</html>
