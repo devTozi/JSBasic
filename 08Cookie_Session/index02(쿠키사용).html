@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <h3>1번 페이지에서 만든 쿠키 사용</h3>
+
+    <input type="text" id="findCookie">
+    <button id="btn">찾기</button>
+
+    <script>
+        // console.log(document.cookie);
+        
+        var findCookie = document.getElementById('findCookie');
+        var btn = document.getElementById('btn');
+        btn.onclick = function(){
+            var find = findCookie.value;
+            
+            var arr = document.cookie.split("; ");
+            // 반복문을 이용해서 쿠키 찾기
+            for(var i of arr){
+                if(i.split('=')[0] == find) {
+                    console.log('키: '+find);
+                    console.log('값: '+i.split('=')[1]);
+                }    
+            }
+            // for(i in arr){
+            //     if(arr[i].indexOf(find) != -1){
+            //         var val = arr[i].replace(" ","").replace(find+"=", "");
+            //         console.log('키 :'+find);
+            //         console.log('값 :'+val);
+            //     }
+            // }
+        }
+
+    </script>
+    
+</body>
+</html>
