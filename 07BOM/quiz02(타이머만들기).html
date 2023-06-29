@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <!--
         1. select태그는 시간:99 or 분:60 or 초:60으로 화면이 생성될 때 엘리먼트 생성기법으로 처리합니다.
@@ -15,6 +17,111 @@
 
         시간 설정, 타이머 시작(누르면 일시정지 버튼으로 변경) 버튼 생성
     -->
-    
+
+    <h2>&#9200; 타이머</h2>
+    <select id="setHour"></select> 시
+    <select id="setMinute"></select> 분
+    <select id="setSecond"></select> 초
+    <button id="setBtn">설정</button>
+
+    <section style="margin: 10px;">
+        <h3 id="timer" style="display: none;"></h3>
+        <button id="btn" style="display: none; font-weight: 600;">START</button>
+    </section>
+
+    <script>
+        var setHour = document.getElementById('setHour');
+        var setMinute = document.getElementById('setMinute');
+        var setSecond = document.getElementById('setSecond');
+        var check = false;
+
+        // 시간 세팅
+        for (var i = 0; i < 100; i++) {
+            var op = document.createElement('option');
+            op.value = i;
+            op.innerHTML = i;
+            setHour.appendChild(op);
+        }
+        // 분, 초 세팅
+        for (var i = 0; i < 60; i++) {
+            var op1 = document.createElement('option');
+            var op2 = document.createElement('option');
+            op1.value = i;
+            op2.value = i;
+            op1.innerHTML = i;
+            op2.innerHTML = i;
+            setMinute.appendChild(op1);
+            setSecond.appendChild(op2);
+        }
+
+        var timer = document.getElementById('timer');
+        var setBtn = document.getElementById('setBtn');
+        // 세팅된 시간 적용
+        setBtn.onclick = function () {
+            if(check) {
+                alert('타이머를 정지하고 설정해주세요.');
+                return;
+            }   
+            var hour = setHour.value.length == 1 ? '0' + setHour.value : setHour.value;
+            var minute = setMinute.value.length == 1 ? '0' + setMinute.value : setMinute.value;
+            var second = setSecond.value.length == 1 ? '0' + setSecond.value : setSecond.value;
+            if (hour == '00' && minute == '00' && second == '00') {
+                timer.innerHTML = '시간을 설정해주세요.';
+                timer.style.color = 'red';
+                timer.style.display = 'inline';
+                return;
+            }
+            timer.innerHTML = hour + ' : ' + minute + ' : ' + second;
+            timer.style.color = 'black';
+            timer.style.display = 'inline-block';
+            document.getElementById('btn').style.display = 'inline';
+        }
+
+        var btn = document.getElementById('btn');
+        var race;
+        btn.onclick = function () {
+            if (btn.innerHTML == 'START') { // 타이머 시작
+                check = true;
+                btn.innerHTML = 'STOP';
+                race = window.setInterval(function () {
+                    var timer = document.getElementById('timer')
+                    var arr = timer.innerHTML.split(' : ');
+                    // console.log(timer.innerHTML);
+                    var hour = parseInt(arr[0]);
+                    var minute = parseInt(arr[1]);
+                    var second = parseInt(arr[2]);
+                    if (hour == 0 && minute == 0 && second == 0) {
+                        window.clearInterval(race);
+                        alert('타이머가 종료되었습니다.'); 
+                        return;
+                    }
+                    second -= 1;
+                    if (second == -1) {
+                        second = 59;
+                        minute -= 1;
+                        if (minute == -1) {
+                            minute = 59;
+                            if (hour != 0) {
+                                hour -= 1;
+                            } 
+                        }
+                    }
+                    if(hour < 10) hour = '0'+hour;
+                    if(minute < 10) minute = '0'+minute;
+                    if(second < 10) second = '0'+second;
+                    timer.innerHTML = hour + ' : ' + minute + ' : ' + second;
+                }, 1000);
+            } else { // 타이머 일시정지
+                window.clearInterval(race);
+                btn.innerHTML = 'START';
+                check = false;
+            }
+        }
+
+
+
+    </script>
+
 </body>
+
 </html>

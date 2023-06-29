@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- 카카오 SDK 로드 -->
+    <script src="js/kakao.min.js"></script>
+
+</head>
+
+<body>
+
+    <a id="kakao-login-btn" href="javascript:loginWithKakao()">
+        <img src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" width="222" alt="카카오 로그인 버튼" />
+    </a>
+    <h3 id="loginCheck">로그인 안함</h3>
+
+    <script>
+        // 1. SDK 초기화 - JS 키값 전달
+        Kakao.init('90d19314f05de964b7db6c3e3330ef2b');
+        //console.log(Kakao.isInitialized()); // true면 성공
+
+        var uri = 'http://127.0.0.1:5501/09AJAX/index05(kakaoLogin).html';
+        // 2. 로그인 함수 실행 (redirectUri로 이동시킬 화면 전달)
+        function loginWithKakao() {
+            Kakao.Auth.authorize({
+                redirectUri: uri
+            });
+        }
+
+        // 3. 인가코드 받아오기
+        var URLSearch = new URLSearchParams(location.search);
+        // console.log(URLSearch.get('code')); // 인가코드
+        if(URLSearch.get('code') != null){
+            ajax();
+        }
+
+        // 4. 토큰 발급 요청 (POST방식, 폼형식)
+        function ajax(){
+
+            // JSON 형식의 POST 요청
+            // var data = {
+            //     grant_type: 'authorization_code', // 디폴트
+            //     client_id: '2cef04fc1faba99845ea134c553a2ba1', // 내 REST API 앱키
+            //     redirect_uri: 'http://127.0.0.1:5501/09AJAX/index05(kakaoLogin).html', // 인가코드를 받은 URI
+            //     code: URLSearch.get('code') // 위의 인가코드
+            // }
+            // fetch('https://kauth.kakao.com/oauth/token', {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json' 
+            //     },
+            //     body: JSON.stringify(data)
+            // })
+            // .then(function(res){
+            //     console.log(res);
+            // })
+
+            // form 형식의 POST 요청
+            // formDate 객체 이용 or 문자열
+
+            // formDate 형식 (다른 예시)
+            // const formData = new FormData();
+            // const fileField = document.querySelector('input[type="file"]');
+            // formData.append('username', 'abc123');
+            // formData.append('avatar', fileField.files[0]);
+
+            // 문자열 형식
+            var data = "grant_type=authorization_code"+
+                       "&client_id=2cef04fc1faba99845ea134c553a2ba1"+
+                       "&redirect_uri="+uri+
+                       "&code="+URLSearch.get('code');
+
+            fetch('https://kauth.kakao.com/oauth/token', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8' 
+                },
+                body: data
+            })
+            .then(function(res){
+                return res.json();
+            })
+            .then(function(data){
+                // data 내 액세스 토큰을 전역적으로 사용하는 방법
+                // 1. sessionStorage or cookie
+                // sessionStorage.setItem('access_token', data.access_token);
+
+                // 2. 카카오 API 함수
+                Kakao.Auth.setAccessToken(data.access_token);
+
+                // 토큰을 발급받고 사용자 정보 받아오기 호출
+                requestUserInfo();
+            })
+        }
+
+        // 5. 사용자 정보 가져오기
+        function requestUserInfo(){
+            // 카카오 API 내장 함수 호출
+            Kakao.API.request({
+                url: '/v2/user/me',
+            })
+            .then(function(res) {
+                // console.log(res.kakao_account.email);
+                // console.log(res.kakao_account.profile.nickname);
+                // console.log(res.kakao_account.profile.profile_image_url);
+                
+                // 이 정보를 가지고, 우리 데이터베이스에서 조회 or 로그인하는 작업으로 연결
+                // sessionStorage에 정보 저장 (브라우저 닫을 시 초기화)
+                sessionStorage.setItem('info', JSON.stringify({email: res.kakao_account.email,
+                                                               nick: res.kakao_account.profile.nickname,
+                                                               profile_image: res.kakao_account.profile.profile_image_url}));
+                // 로그인되면 화면 이동                                              
+                location.href = 'index06.html';
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
+        }
+
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <button onclick="ajax()">json 파일 읽어오기</button>
+    <div class="result"></div>
+
+    <script>
+        function ajax(){
+            fetch('hi.json')
+            .then(function(res){
+                return res.json(); // json형변환
+            })
+            .then(function(data){
+                // console.log(data);
+                // console.log(data.id);
+                // console.log(data["id"]);
+                var result = document.querySelector('.result');
+                result.innerHTML = data["id"];
+            });
+        }
+    </script>
+    <br>
+    <button onclick="ajax2()">xml 파일 읽어오기</button>
+
+    <script>
+        function ajax2(){
+            fetch('hi.xml')
+            .then(function(res){
+                return res.text();
+            })
+            .then(function(data){
+                var result = new DOMParser().parseFromString(data, "text/xml");
+                var arr = result.querySelectorAll('datas > data');
+                for(var i of arr){
+                    console.log(i.querySelector('name').innerHTML);
+                    console.log(i.querySelector('version').innerHTML);
+                    console.log(i.querySelector('price').innerHTML);
+                }
+            })
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script> 
+    <script type="text/javascript"> 
+    function inputData() { 
+        var jsonStr = '['+ ' {"_id":100001, "req_type":"A", "request_time":"20221029130220", "number":"01000000001"},'+ 
+                           ' {"_id":100002, "req_type":"A", "request_time":"20221029130222", "number":"01000000002"},'+ 
+                           ' {"_id":100003, "req_type":"B", "request_time":"20221029130224", "number":"01000000003"},'+ 
+                           ' {"_id":100004, "req_type":"C", "request_time":"20221029130623", "number":"01000000004"}'+ ']'; 
+
+        var dataList = JSON.parse(jsonStr); 
+        drawTable(dataList); 
+    } 
+    // ##### 요구사항 1 ########################### 
+    function drawTable(dataList) { // TODO: dataList를 통해, 테이블 생성 
+        
+        var str = "";
+        dataList.forEach(data => {
+            str += "<tr>"; 
+            str += "<td>"+ data._id +"</td>";
+            str += "<td class='req_type'>"+ data.req_type +"</td>"; 
+            str += "<td>"+ dateFormat(data.request_time) +"</td>"; 
+            str += "<td>"+ phoneNumberFormat(data.number) +"</td>"; 
+            str += "</tr>"; 
+        })
+        $("#tblBody").html(str); 
+       
+    }
+
+    function dateFormat(str) {
+        var year = str.substr(0, 4);
+        var month = str.substr(4, 2);
+        var day = str.substr(6, 2);
+        var hours = str.substr(8, 2);
+        var minutes = str.substr(10, 2);
+        var seconds = str.substr(12, 2);
+
+        return year+"-"+month+"-"+day+" "+hours+":"+minutes+":"+seconds;
+    }
+
+    function phoneNumberFormat(str){
+        var first = str.substr(0, 3);
+        var middle = str.substr(4, 4);
+        var last = str.substr(7, 4);
+
+        return first+"-"+middle+"-"+last;
+    }
+
+    // ##### 요구사항 2 ########################### 
+    function searchByReqType() { 
+        alert("선택된 요청유형: " + $("#selectReqType option:selected").val()); 
+        var count = 0;
+        $(".req_type").each(function(index, elem){
+            if($(elem).text() === $("#selectReqType option:selected").val()) count++;
+            else $(elem).parent().remove();
+        });
+        // TODO: 일치하는 개수 출력 
+        alert("검색된 개수: "+count+"개"); 
+    } 
+    // TODO: 선택된 요청유형과 일치하는 행만 남기고 나머지는 제거 
+    function tableRemove() {
+        $(".req_type").each(function(index, elem){
+            if($(elem).text() === $("#selectReqType option:selected").val()) $(elem).parent().remove();
+        });
+        console.log("목록 제거");
+    } 
+    </script>
+
+</head>
+<body>
+
+    <div style="margin:5px"> 
+        <input type="button" value="데이터 읽기" onclick="inputData()"> 
+        <select id="selectReqType" onchange="searchByReqType()"> 
+            <option value="ALL">전체</option> 
+            <option value="A">타입 A</option> 
+            <option value="B">타입 B</option> 
+            <option value="C">타입 C</option> 
+        </select> 
+        
+        <input type="button" value="데이터 제거" onclick="tableRemove()"> 
+    </div> 
+
+    <div id="tableArea" style="margin:5px"> 
+        <table border="1"> 
+            <thead> 
+            <tr> 
+                <th>요청ID</th> 
+                <th>요청유형</th> 
+                <th>요청시간</th> 
+                <th>전화번호</th> 
+            </tr> 
+            </thead> 
+            <tbody id="tblBody">
+            </tbody> 
+         </table> 
+    </div>
+    
+</body>
+</html>

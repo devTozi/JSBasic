@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <ul class="pageNation">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+    </ul>
+
+    <script>
+        var key = 'MUK34IiLrjtD44oVFt7s0i8egnMhJqS0B6XsNaO7pHoPSsMiJuQQyKw%2BTGOx2fLJ0znAedFK5KH8u1RW%2B3SVgg%3D%3D';
+
+        var pageNation = document.querySelector('.pageNation');
+        pageNation.onclick = function () {
+            if(event.target.tagName != "LI") return;
+            ajax(event.target.innerHTML); // 데이터 호출 (사용자가 클릭한 페이지 번호)
+        }
+
+        function ajax(page) {
+            // 대기 오염
+            // http://apis.data.go.kr/B552584/ArpltnStatsSvc/getMsrstnAcctoRDyrg?serviceKey="+key+"&inqBginDt=20220101&inqEndDt=20221231
+            // 관광지 날씨
+            fetch("http://apis.data.go.kr/1360000/TourStnInfoService/getTourStnVilageFcst" +
+                "?ServiceKey=" + key + "&pageNo=" + page + "&numOfRows=10&dataType=JSON&CURRENT_DATE=2023010600&HOUR=24&COURSE_ID=1")
+                .then(function (res) {
+                    // console.log(res);
+                    return res.json();
+                })
+                .then(function (data) {
+                    // console.log(data.response.body.items.item);
+                    var arr = data.response.body.items.item;
+                    for (var i of arr) {
+                        console.log(i.tm + " " + i.thema);
+                    }
+                })
+        }
+
+        // (function(){
+        //     ajax(1);
+        // })();
+
+    </script>
+
+</body>
+
+</html>
