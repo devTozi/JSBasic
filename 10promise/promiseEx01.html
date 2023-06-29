@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+
+    <div id="dataBox">
+        데이터 없음
+    </div>
+    <input type="text" id="testData">
+    <button id="testBtn">프로미스 테스트</button>
+
+    <script>
+        const pm01 = (res) => {
+            return new Promise((resolve, reject) => {
+                resolve(res);
+               // reject('failed');
+            });
+        }
+
+        $('#testBtn').on('click', ()=>{
+            pm01($('#testData').val())
+            .then(pm01)
+            .then(pm01)
+            .then(msg => $('#dataBox').html('입력값: '+msg))
+            .catch(err => $('#dataBox').html(err));
+        })
+
+    </script>
+    
+</body>
+</html>

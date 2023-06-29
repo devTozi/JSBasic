@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    <!-- 연속적인 promise 실행 -->
+    <button id="onPromise">프로미스 실행</button>
+
+    <script>
+        $('#onPromise').on('click', ()=> {
+            pm01(userInfo)
+            .then(getId)
+            .then(getPw)
+            .then(getName)
+            .catch(err => console.log('에러'));
+        });
+
+        const pm01 = (res) => {
+            return new Promise((resolve, reject) => {
+                resolve(res);
+               // reject('failed');
+            });
+        }
+
+        let userInfo = {
+            id: 'test@abc.com',
+            pw: '****',
+            name: 'lee'
+        };
+
+        function getId(res) {
+            console.log('아이디는 '+res.id);
+            res.id += '추가1';
+            return new Promise((resolve) => {
+                resolve(res);
+            });
+        }
+        function getPw(res) {
+            console.log('비번은 '+res.pw);
+            res.pw += '추가2';
+            return new Promise((resolve, reject) => {
+                resolve(res);
+            });
+        }
+        function getName(res) {
+            console.log('이름은 '+res.name);
+            res.name += '추가3';
+            return new Promise((resolve, reject) => {
+                resolve(res);
+            });
+        }
+    </script>
+    
+</body>
+</html>
